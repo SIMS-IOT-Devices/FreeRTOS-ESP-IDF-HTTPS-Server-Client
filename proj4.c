@@ -74,7 +74,7 @@ void wifi_connection()
 // Server
 static esp_err_t server_get_handler(httpd_req_t *req)
 {
-    const char resp[] = "GET Response .................";
+    const char resp[] = "Server GET Response .................";
     httpd_resp_set_type(req, "text/html");
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, resp, HTTPD_RESP_USE_STRLEN);
@@ -89,7 +89,7 @@ esp_err_t server_post_handler(httpd_req_t *req)
 
     // If no data is send the error will be:
     // W (88470) httpd_uri: httpd_uri: uri handler execution failed
-    printf("\nPOST content: %s\n", content);
+    printf("\nServer POST content: %s\n", content);
 
     if (ret <= 0)
     { /* 0 return value indicates connection closed */
@@ -101,7 +101,7 @@ esp_err_t server_post_handler(httpd_req_t *req)
         return ESP_FAIL;
     }
     /* Send a simple response */
-    const char resp[] = "POST Response .................";
+    const char resp[] = "Server POST Response .................";
     httpd_resp_set_type(req, "text/html");
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
     httpd_resp_send(req, resp, HTTPD_RESP_USE_STRLEN);
@@ -154,7 +154,7 @@ esp_err_t client_event_get_handler(esp_http_client_event_handle_t evt)
     switch (evt->event_id)
     {
     case HTTP_EVENT_ON_DATA:
-        printf("HTTP_EVENT_ON_DATA: %.*s\n", evt->data_len, (char *)evt->data);
+        printf("Client HTTP_EVENT_ON_DATA: %.*s\n", evt->data_len, (char *)evt->data);
         break;
 
     default:
